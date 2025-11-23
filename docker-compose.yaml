@@ -1,0 +1,47 @@
+services:
+  opentelemetry-collector:
+    container_name: opentelemetry_collector
+    image: otel/opentelemetry-collector-contrib:latest
+    expose:
+      - 4317
+      - 9464
+      - 8888
+    env_file: .env
+    volumes:
+      - ./opentelemetry-config.yaml:/etc/otel/config.yaml
+    restart: unless-stopped
+    command: '--config=/etc/otel/config.yaml'
+    networks:
+      - chat-network
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:latest
+    expose:
+      - 9090
+    env_file: .env
+    volumes:
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yml
+    restart: unless-stopped
+    networks:
+      - chat-network
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    ports:
+      - '3030:3000'
+    env_file: .env
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards/:/var/lib/grafana/dashboards/
+      - data:/var/lib/grafana
+    restart: unless-stopped
+    networks:
+      - chat-network
+
+volumes:
+  data:
+
+networks:
+  chat-network:
+    driver: bridge
+    external: true

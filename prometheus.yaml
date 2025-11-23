@@ -1,0 +1,7 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: 'opentelemetry-collector'
+    static_configs:
+      - targets: ['opentelemetry_collector:9464']
