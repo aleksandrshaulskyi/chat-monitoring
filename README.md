@@ -1,52 +1,49 @@
-# Chat-auth.
 
-The authentication microservice for the distributed chat system.
+
+
+
+
+
+
+
+# Chat-monitoring.
+
+The monitoring microservice for the distributed chat system.
 
 ## Brief.
 
-This microservice is generally responsible for everything that is related to
-authentication process. The authentication is based on the stateless approach
-using JSON web tokens. That said, we utilize both full advantage of the stateless
-tokens and it's main disadvantage - unability to revoke an issued token immediately.
+This microservice utilizes the modern and popular stack of  
+
+**Opentelemetry** | **Prometheus** | **Grafana**  
+
+to implement metrics monitoring. For the moment only vital metrics are monitored
+such as the amount of the requests per second, latency for 95% and 99% of requests and
+requests responded with an error.
 
 ## Stage.
 This service is in the stage of active development. Updates are released multiple times a week.
 
 ## Features.
-This microservice operates with the two domain entities:
+This microservice provides the monitoring solution for all of the microservices.
 
-1) Session
-2) User
+Comes with 3 provisioned dashboards for each of the backend microservices
+of this project and the default Prometheus datasource.
 
-Thus it provides all that is required to work with them.
-
-1) Create/Refresh/Terminate sessions.
-2) CRU (Deleting is not yet released) operations with User.
-
-## Architecture.
-
-This microservice is built using the Clean Architecture approach.
-It consists of 4 layers which are:
-
-1) Domain (entities, value objects)
-2) Application layer (domain entities orchestration and business logic)
-3) Interface adapters (thin transport layer that incapsulates the internal logic)
-4) Infrastructure (frameworks, databases, etc.)
+Each dashboard contains the metrics that were listed above and the transportation
+layer also contains the time series for the amount of the active connections to the
+websocket hub.
 
 ## Usage.
 
 1) Clone the repository.
-2) Create .env file in the backed directory using the env_example.txt as an example.
-3) ```docker-compose up --build``` in the directory where docker-compose.yaml file is located.
-4) The application will be available on **http://localhost:8000**
+2) Create the .env file using the example in the root directory.
+3) Switch to the directory that contains the docker-compose file.
+4) Run ```docker-compose up --build```.
+5) That is it. Access Grafana on **http://localhost:3030**
 
 ## Recent updates.
 
 None yet released.
-
-## Docs.
-
-Available at the standard FastAPI docs endpoint **http://localhost:8000/docs**
 
 ## Back to Index repository of the whole chat system.
 
