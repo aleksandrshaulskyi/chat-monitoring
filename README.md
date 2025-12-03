@@ -1,39 +1,71 @@
-
-
-
-
-
-
-
-
 # Chat-monitoring.
 
-The monitoring microservice for the distributed chat system.
+Unified observability layer for the distributed chat platform
 
-## Brief.
+A dedicated monitoring microservice built on top of the modern OpenTelemetry → Prometheus → Grafana stack, providing real-time metrics, dashboards, and operational visibility for all backend services in the system.
 
-This microservice utilizes the modern and popular stack of  
+## 🚀 Overview
 
-**Opentelemetry** | **Prometheus** | **Grafana**  
+Chat-monitoring centralizes metrics collection, storage, and visualization for the entire distributed chat ecosystem.
+It leverages a lightweight and production-grade observability stack:
 
-to implement metrics monitoring. For the moment only vital metrics are monitored
-such as the amount of the requests per second, latency for 95% and 99% of requests and
-requests responded with an error.
+**OpenTelemetry** — instrumentation & metric export
 
-## Stage.
-This service is in the stage of active development. Updates are released multiple times a week.
+**Prometheus** — time-series database & scraping
 
-## Features.
-This microservice provides the monitoring solution for all of the microservices.
+**Grafana** — dashboards for real-time analytics
 
-Comes with 3 provisioned dashboards for each of the backend microservices
-of this project and the default Prometheus datasource.
+At the moment, the service tracks core, high-impact metrics such as:
 
-Each dashboard contains the metrics that were listed above and the transportation
-layer also contains the time series for the amount of the active connections to the
-websocket hub.
+**Requests per second (RPS)**
 
-## Usage.
+**p95 and p99 latency**
+
+**Error-rate**
+
+**WebSocket connection count (for the transport layer)**
+
+This setup provides instant insight into system health, performance bottlenecks, and load patterns.
+
+## 🧩 Features
+
+Centralized metrics for all microservices
+Each backend service exports standard OTel metrics that are scraped and visualized automatically.
+
+Pre-provisioned Grafana dashboards
+Includes three ready-to-use dashboards, one for every backend microservice:
+
+- Chat-auth
+
+- Chat-transport
+
+- Chat-messaging
+
+Vital performance metrics
+
+Every dashboard includes:
+
+- RPS
+
+- p95 latency
+
+- p99 latency
+
+- Error-rate
+
+**Transport-specific metrics**
+
+For Chat-transport, an additional time series tracks the number of active WebSocket connections.
+
+**Out-of-the-box Prometheus datasource**
+
+Datasource provisioning included — no manual setup required.
+
+**Batteries-included monitoring**
+
+Instant local deployment with full observability stack running in Docker.
+
+## ⚙️ Usage.
 
 1) Clone the repository.
 2) Create the .env file using the example in the root directory.
@@ -41,10 +73,7 @@ websocket hub.
 4) Run ```docker-compose up --build```.
 5) That is it. Access Grafana on **http://localhost:3030**
 
-## Recent updates.
+## 🔗 Back to the Main Index Repository
 
-None yet released.
-
-## Back to Index repository of the whole chat system.
-
+Explore the full distributed chat system:
 https://github.com/aleksandrshaulskyi/chat-index
